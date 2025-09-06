@@ -614,7 +614,7 @@ section .wave.wave4 {
             align-items: center;
             font-size: 1em;
             width: 60%;
-            top: 28%;
+            top: 30%;
             z-index: 1005;
             left: 24%;
             position: absolute;
@@ -897,6 +897,7 @@ section .wave.wave4 {
     }
 
 }
+
 
 
 
