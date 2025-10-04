@@ -705,7 +705,7 @@ section .wave.wave4 {
     @media (max-width: 600px) {
       .gallery-wrapper {
         width: 95%;
-		height: 385px;
+		height: 400px;
       }
     }
 
