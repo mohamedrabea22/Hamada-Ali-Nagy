@@ -1,56 +1,69 @@
 const textInput = document.getElementById("textInput");
-const voiceSelect = document.getElementById("voiceSelect");
+const voiceType = document.getElementById("voiceType");
 const speakBtn = document.getElementById("speakBtn");
+const downloadBtn = document.getElementById("downloadBtn");
 
-let voices = [];
+const rateSlider = document.getElementById("rate");
+const pitchSlider = document.getElementById("pitch");
+const wave = document.getElementById("wave");
+const ctx = wave.getContext("2d");
 
-function loadVoicesProperly() {
-    return new Promise(resolve => {
-        let voicesLoaded = speechSynthesis.getVoices();
+let isPlaying = false;
 
-        if (voicesLoaded.length !== 0) {
-            resolve(voicesLoaded);
-        } else {
-            speechSynthesis.onvoiceschanged = () => {
-                voicesLoaded = speechSynthesis.getVoices();
-                resolve(voicesLoaded);
-            };
-        }
-    });
-}
+// رسم موجة الصوت
+function drawWave() {
+    if (!isPlaying) return;
 
-async function populateVoices() {
-    voices = await loadVoicesProperly();
+    ctx.clearRect(0, 0, wave.width, wave.height);
 
-    voiceSelect.innerHTML = "";
+    const time = Date.now() / 200;
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#4c85ff";
 
-    voices.forEach(voice => {
-        const option = document.createElement("option");
-        option.value = voice.name;
-        option.textContent = `${voice.name} (${voice.lang})`;
-        voiceSelect.appendChild(option);
-    });
-
-    // اختيار صوت عربي تلقائي
-    const arVoice = voices.find(v => v.lang.toLowerCase().startsWith("ar"));
-    if (arVoice) {
-        voiceSelect.value = arVoice.name;
+    for (let x = 0; x < wave.width; x++) {
+        const y = wave.height / 2 + Math.sin(x * 0.05 + time) * 20;
+        ctx.lineTo(x, y);
     }
+
+    ctx.stroke();
+    requestAnimationFrame(drawWave);
 }
 
-populateVoices();
-
-// تشغيل الصوت
-function speakText() {
+speakBtn.onclick = () => {
     const text = textInput.value.trim();
     if (!text) return;
 
-    const utter = new SpeechSynthesisUtterance(text);
-    const selected = voices.find(v => v.name === voiceSelect.value);
-    if (selected) utter.voice = selected;
+    isPlaying = true;
+    drawWave();
 
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utter);
-}
+    ArabicTTS({
+        text: text,
+        voice: voiceType.value,
+        rate: rateSlider.value,
+        pitch: pitchSlider.value,
+        volume: 1,
+        callback: () => {
+            isPlaying = false;
+        }
+    });
+};
 
-speakBtn.addEventListener("click", speakText);
+// حفظ الصوت
+downloadBtn.onclick = async () => {
+    const text = textInput.value.trim();
+    if (!text) return;
+
+    const audioUrl = await ArabicTTS({
+        text: text,
+        voice: voiceType.value,
+        rate: rateSlider.value,
+        pitch: pitchSlider.value,
+        download: true
+    });
+
+    const a = document.createElement("a");
+    a.href = audioUrl;
+    a.download = "tts-arabic.mp3";
+    a.click();
+};
