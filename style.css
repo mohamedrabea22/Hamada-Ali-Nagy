@@ -58,7 +58,6 @@ body, header, section, div, h1, h2, h3, p, a, button, i {
     position: absolute; width: 450px; height: 450px; border-radius: 50%;
     background: radial-gradient(circle, var(--glow-opacity) 0%, transparent 70%);
     filter: blur(65px); z-index: -1; pointer-events: none;
-   
 }
 .glow-1 { top: 8%; right: -5%; }
 .glow-2 { top: 50%; left: -10%; animation-delay: 5s; }
@@ -107,7 +106,7 @@ header {
 .active-pulse {
     background-color: rgba(16, 185, 129, 0.1); color: var(--accent-emerald);
     padding: 6px 16px; border-radius: 50px; font-size: 13.5px; font-weight: 700; display: inline-block; margin-bottom: 20px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.2); animation: fluidPulse 2.5s infinite alternate ease-in-out;
 }
 @keyframes fluidPulse { 0% { transform: scale(1); box-shadow: 0 0 4px transparent; } 100% { transform: scale(1.04); box-shadow: 0 0 15px var(--glow-opacity); } }
 
@@ -120,7 +119,7 @@ header {
 .btn { padding: 13px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; transition: var(--fluid-transition); }
 .btn-primary { background-color: var(--accent-emerald); color: #ffffff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 .btn-primary:hover { background-color: var(--accent-deep); transform: translateY(-3px) scale(1.02); }
-.premium-pulse {}
+.premium-pulse { animation: linearPulse 2.5s infinite ease-in-out; }
 @keyframes linearPulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); } 70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 .btn-outline { border: 2px solid var(--border-line); color: var(--color-title); background: var(--bg-card-glass); }
 .btn-outline:hover { border-color: var(--accent-emerald); background: var(--accent-emerald); color: #ffffff; transform: translateY(-3px); }
@@ -139,12 +138,12 @@ header {
 /* 🌟 شبكة التابلت والموبايل التكيفية لقسم المؤهلات */
 .timeline-adaptive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 .timeline-card { background-color: var(--bg-card-glass); padding: 35px 25px; border-radius: 16px; border: 1px solid var(--border-line); border-right: 4px solid var(--accent-emerald); box-shadow: 0 10px 25px var(--shadow-base); transition: var(--fluid-transition); }
-.premium-float {}
+.premium-float { animation: continuousFloat 6s infinite alternate ease-in-out; }
 @keyframes continuousFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
 .timeline-card:hover { transform: translateY(-5px) scale(1.02); border-color: var(--accent-emerald); box-shadow: 0 15px 35px var(--shadow-base); }
 
 .icon-wrap { width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.08); color: var(--accent-emerald); display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 22px; margin-bottom: 20px; }
-.icon-wobble i {}
+.icon-wobble i { animation: continuousWobble 4s infinite ease-in-out; }
 @keyframes continuousWobble { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(10deg) scale(1.08); } }
 .timeline-card h3 { font-size: 19px; margin-bottom: 10px; color: var(--color-title); font-weight: 700; }
 .timeline-card p { color: var(--color-body); font-size: 14.5px; line-height: 1.7; }
@@ -152,7 +151,7 @@ header {
 /* شبكة كروت الخدمات */
 .services-adaptive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 .service-block { background-color: var(--bg-card-glass); padding: 40px 25px; border-radius: 20px; border: 1px solid var(--border-line); text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 25px var(--shadow-base); transition: var(--fluid-transition); }
-.shine-loop::after { content: ''; position: absolute; top: -50%; left: -60%; width: 25%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent); transform: rotate(30deg);}
+.shine-loop::after { content: ''; position: absolute; top: -50%; left: -60%; width: 25%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent); transform: rotate(30deg); animation: elegantShine 7s infinite linear; }
 @keyframes elegantShine { 0% { left: -60%; } 25%, 100% { left: 140%; } }
 .service-block:hover { transform: scale(1.03) translateY(-4px); border-color: var(--accent-emerald); }
 .s-block-icon { font-size: 44px; color: var(--accent-emerald); margin-bottom: 20px; display: inline-block; }
@@ -170,7 +169,7 @@ header {
 .contact-adaptive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 .glass-premium-card { background: var(--bg-card-glass); border: 1px solid var(--border-line); padding: 40px 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px var(--shadow-base); transition: var(--fluid-transition); }
 .glass-premium-card:hover { border-color: var(--accent-emerald); transform: translateY(-4px); }
-.icon-pulse-continuous {color: var(--accent-emerald); font-size: 36px; margin-bottom: 18px; display: inline-block; }
+.icon-pulse-continuous { animation: continuousPulseIcon 3s infinite ease-in-out; color: var(--accent-emerald); font-size: 36px; margin-bottom: 18px; display: inline-block; }
 @keyframes continuousPulseIcon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 .contact-card h4 { font-size: 20px; margin-bottom: 10px; font-weight: 700; color: var(--color-title); }
 .contact-card p { font-size: 14px; color: var(--color-body); margin-bottom: 25px; }
